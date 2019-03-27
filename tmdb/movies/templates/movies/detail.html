@@ -1,0 +1,20 @@
+{% extends "movies/base.html" %}
+{% load static %}
+
+{% block page_title %}{{ movie.title }}{% endblock page_title %}
+
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css" href="{% static "movies/css/detail.css" %}">
+{% endblock extrahead %}
+
+{% block content %}
+ <div class='movie-list-item'>
+    <img class="movie-poster-big" src="{{ movie.poster_src_big }}" alt="{{ movie.title }} Poster">
+    <div class="movie-details">
+        <h2>{{ movie.title }}</h2>
+        <p>Released: {{ movie.release_date }}</p>
+        <p>Popularity: {{ movie.popularity }}</p>
+        <p>{{ movie.overview }}</p>
+    </div>
+</div>
+{% endblock content %}

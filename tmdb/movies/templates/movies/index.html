@@ -1,0 +1,39 @@
+{% extends "movies/base.html" %}
+
+{% block page_title %}Most Popular Movies{% endblock page_title %}
+
+{% block content %}
+<form id="search" >
+    <input type="search" name="query" value="{{ query }}" placeholder="Search here...">
+    <input type="submit" value="Search" >
+</form>
+
+<h2>Most popular movies from TMDB</h2>
+
+<div class='movies-list'>
+    {% for flick in movies %}
+    <div class='movie-list-item'>
+        <a href="{% url 'detail' flick.tmdb_id %}" title="{{ flick.title }} details">
+            <img class="movie-poster" src="{{ flick.poster_src }}" alt="{{ flick.title }} Poster">
+                <h3>{{ flick.title }} ({{ flick.release_year }})</h3>
+                <p>Popularity: {{ flick.popularity }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<div class="pager">
+{% if prev_page %}
+    <a href="/?page={{ prev_page }}{% if query %}&query={{ query|urlencode }}{% endif %}"
+       title="Previous...">&laquo;Previous</a>&nbsp;
+{% endif %}
+
+{% if next_page %}
+    &nbsp;<a href="/?page={{ next_page }}{% if query %}&query={{ query|urlencode }}{% endif %}"
+       title="Next...">Next&raquo;</a>
+{% endif %}
+</div>
+
+{% endblock content %}
